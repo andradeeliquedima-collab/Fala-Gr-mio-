@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fala, Grêmio! | Ouvidoria Estudantil</title>
+<meta name="description" content="Canal de comunicação do Grêmio Estudantil para denúncias, reclamações e sugestões.">
+<style>
+:root{
+  --primary:#173b8f; --primary2:#2856c4; --bg:#f5f7fb; --text:#172033;
+  --muted:#667085; --white:#fff; --danger:#c62828; --border:#dfe4ee;
+  --shadow:0 14px 35px rgba(23,59,143,.10);
+}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,textarea,select{font:inherit} .page{min-height:100vh}
+header{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;padding:42px 20px 74px;text-align:center}
+.logo{width:78px;height:78px;border-radius:22px;background:#fff;color:var(--primary);display:grid;place-items:center;font-size:30px;font-weight:900;margin:0 auto 18px;box-shadow:0 10px 25px #09225d55}
+header h1{margin:0;font-size:clamp(30px,7vw,48px)} header p{max-width:650px;margin:12px auto 0;line-height:1.6;opacity:.94}
+main{max-width:920px;margin:-42px auto 0;padding:0 18px 50px;position:relative}
+.card{background:#fff;border-radius:24px;box-shadow:var(--shadow);padding:28px;margin-bottom:18px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.choice{border:1px solid var(--border);border-radius:20px;padding:26px;text-align:left;background:#fff;cursor:pointer;transition:.2s}
+.choice:hover{transform:translateY(-3px);box-shadow:0 10px 25px #10182812;border-color:#b7c4e6}
+.choice .icon{font-size:34px;margin-bottom:12px}.choice h2{margin:0 0 8px;font-size:21px}.choice p{margin:0;color:var(--muted);line-height:1.55}
+.tag{display:inline-block;font-size:12px;font-weight:800;padding:5px 9px;border-radius:99px;background:#eef3ff;color:var(--primary);margin-bottom:10px}
+.section{display:none}.section.active{display:block}.back{border:0;background:none;color:var(--primary);font-weight:800;cursor:pointer;padding:0;margin-bottom:18px}
+h2{margin-top:0} .notice{background:#f7f9fc;border:1px solid var(--border);border-radius:15px;padding:14px;line-height:1.5;color:#4b5565;font-size:14px}
+label{display:block;font-weight:750;margin:17px 0 7px} .required{color:var(--danger)}
+input,textarea,select{width:100%;border:1px solid var(--border);border-radius:12px;padding:13px 14px;background:#fff;outline:none}
+input:focus,textarea:focus,select:focus{border-color:#5474c9;box-shadow:0 0 0 3px #5474c922}
+textarea{min-height:130px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.radio-group{display:flex;gap:15px;flex-wrap:wrap}.radio{border:1px solid var(--border);padding:11px 13px;border-radius:12px;cursor:pointer;font-weight:600}
+.radio input{width:auto;margin-right:7px}
+.actions{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}.primary{border:0;border-radius:12px;background:var(--primary);color:#fff;padding:14px 20px;font-weight:800;cursor:pointer}.secondary{border:1px solid var(--border);border-radius:12px;background:#fff;padding:14px 20px;font-weight:800;cursor:pointer}
+.success{display:none;text-align:center;padding:25px}.success .check{font-size:50px}.success h2{margin-bottom:8px}
+footer{text-align:center;color:#7a8496;font-size:13px;padding:0 20px 30px;line-height:1.5}
+@media(max-width:650px){.choices,.row{grid-template-columns:1fr}.card{padding:21px;border-radius:20px}}
+</style>
+</head>
+<body>
+<div class="page">
+<header>
+  <div class="logo">G</div>
+  <h1>Fala, Grêmio!</h1>
+  <p>Um canal criado para ouvir os estudantes, acolher suas ideias e receber comunicações sobre situações que precisam de atenção.</p>
+</header>
+
+<main>
+  <section id="home" class="card">
+    <span class="tag">OUVIDORIA ESTUDANTIL</span>
+    <h2>Como podemos ajudar?</h2>
+    <p style="color:var(--muted);line-height:1.6">Escolha uma opção abaixo. Você pode comunicar uma situação de preconceito ou discriminação, fazer uma reclamação ou enviar uma sugestão ao Grêmio.</p>
+    <div class="choices">
+      <button class="choice" onclick="openForm('denuncia')">
+        <div class="icon">🛡️</div><h2>Quero denunciar</h2>
+        <p>Relate situações como racismo, preconceito, bullying, discriminação ou outras ocorrências que precisam ser comunicadas.</p>
+      </button>
+      <button class="choice" onclick="openForm('sugestao')">
+        <div class="icon">💬</div><h2>Quero reclamar ou sugerir</h2>
+        <p>Envie uma reclamação, uma ideia, uma proposta ou uma sugestão para melhorar a vida dos estudantes.</p>
+      </button>
+    </div>
+  </section>
+
+  <section id="denuncia" class="section card">
+    <button class="back" onclick="goHome()">← Voltar</button>
+    <span class="tag">DENÚNCIA</span><h2>Comunicar uma situação</h2>
+    <div class="notice">Conte apenas o que você se sentir confortável em compartilhar. Se houver risco imediato para alguém, procure um adulto responsável ou os serviços de emergência da sua região.</div>
+    <form id="denunciaForm" onsubmit="sendForm(event,'denuncia')">
+      <label>Você quer se identificar? <span class="required">*</span></label>
+      <div class="radio-group">
+        <label class="radio"><input type="radio" name="identidadeD" value="Sim" checked onchange="toggleName('D')"> Sim</label>
+        <label class="radio"><input type="radio" name="identidadeD" value="Não" onchange="toggleName('D')"> Prefiro não me identificar</label>
+      </div>
+      <div id="nameD"><label>Seu nome <span class="required">*</span></label><input name="nome" required placeholder="Digite seu nome"></div>
+      <div class="row">
+        <div><label>Tipo de situação <span class="required">*</span></label>
+          <select name="tipo" required><option value="">Selecione</option><option>Racismo</option><option>Preconceito</option><option>Bullying</option><option>Discriminação</option><option>Intimidação</option><option>Outro</option></select>
+        </div>
+        <div><label>Quando aconteceu?</label><input name="data" type="date"></div>
+      </div>
+      <label>Onde aconteceu?</label><input name="local" placeholder="Ex.: sala, pátio, entrada da escola...">
+      <label>O que aconteceu? <span class="required">*</span></label><textarea name="relato" required placeholder="Descreva a situação com o máximo de clareza possível, sem incluir dados desnecessários."></textarea>
+      <label>Há alguém que possa ajudar a esclarecer o ocorrido?</label><input name="testemunhas" placeholder="Opcional">
+      <div class="actions"><button class="primary" type="submit">Enviar denúncia</button><button class="secondary" type="button" onclick="goHome()">Cancelar</button></div>
+    </form>
+    <div id="successD" class="success"><div class="check">✅</div><h2>Mensagem preparada!</h2><p>O formulário foi validado. Para que a mensagem realmente chegue ao Grêmio, conecte este formulário a um serviço de recebimento no código, conforme explicado no README.</p><button class="primary" onclick="goHome()">Voltar ao início</button></div>
+  </section>
+
+  <section id="sugestao" class="section card">
+    <button class="back" onclick="goHome()">← Voltar</button>
+    <span class="tag">RECLAMAÇÃO / SUGESTÃO</span><h2>Fale com o Grêmio</h2>
+    <div class="notice">Este espaço é para ouvir os estudantes. Escreva sua reclamação, sugestão ou proposta com respeito e, se possível, explique como a situação poderia melhorar.</div>
+    <form id="sugestaoForm" onsubmit="sendForm(event,'sugestao')">
+      <label>Você quer se identificar? <span class="required">*</span></label>
+      <div class="radio-group">
+        <label class="radio"><input type="radio" name="identidadeS" value="Sim" checked onchange="toggleName('S')"> Sim</label>
+        <label class="radio"><input type="radio" name="identidadeS" value="Não" onchange="toggleName('S')"> Prefiro não me identificar</label>
+      </div>
+      <div id="nameS"><label>Seu nome <span class="required">*</span></label><input name="nome" required placeholder="Digite seu nome"></div>
+      <label>Assunto <span class="required">*</span></label>
+      <select name="assunto" required><option value="">Selecione</option><option>Reclamação</option><option>Sugestão</option><option>Ideia para o Grêmio</option><option>Problema na escola</option><option>Outro</option></select>
+      <label>Sua mensagem <span class="required">*</span></label><textarea name="mensagem" required placeholder="Escreva aqui..."></textarea>
+      <div class="actions"><button class="primary" type="submit">Enviar mensagem</button><button class="secondary" type="button" onclick="goHome()">Cancelar</button></div>
+    </form>
+    <div id="successS" class="success"><div class="check">✅</div><h2>Mensagem preparada!</h2><p>O formulário foi validado. Para que a mensagem realmente chegue ao Grêmio, conecte este formulário a um serviço de recebimento no código, conforme explicado no README.</p><button class="primary" onclick="goHome()">Voltar ao início</button></div>
+  </section>
+</main>
+<footer>Fala, Grêmio! • Canal de comunicação estudantil<br>Este site não substitui canais oficiais de atendimento da escola ou serviços de emergência.</footer>
+</div>
+<script>
+function openForm(id){document.getElementById('home').style.display='none';document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+function goHome(){document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));document.getElementById('home').style.display='block';window.scrollTo({top:0,behavior:'smooth'})}
+function toggleName(x){let form=document.getElementById('name'+x);let yes=document.querySelector('input[name="identidade'+x+'"]:checked').value==='Sim';form.style.display=yes?'block':'none';form.querySelector('input').required=yes}
+function sendForm(e,type){e.preventDefault();let f=e.target;let data=Object.fromEntries(new FormData(f).entries());console.log('Formulário:',type,data);f.style.display='none';document.getElementById('success'+(type==='denuncia'?'D':'S')).style.display='block'}
+</script>
+</body>
+</html>
